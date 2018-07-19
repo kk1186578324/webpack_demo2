@@ -2,6 +2,7 @@ const path = require('path');
 const uglify = require('uglifyjs-webpack-plugin');//压缩js
 const htmlPlugin= require('html-webpack-plugin');//打包html
 const extractTextPlugin = require("extract-text-webpack-plugin");//将css重js里面分离出来
+const autoprefixer = require("autoprefixer");//将css兼容前缀
 var website ={
     publicPath:"http://127.0.0.1:8081/"
 }
@@ -16,7 +17,7 @@ module.exports={
         path:path.resolve(__dirname,'dist'),
         //输出的文件名称
         filename:'[name].js',
-        publicPath:website.publicPath
+        publicPath:website.publicPath//设置公共路径
     },
     //模块：例如解读CSS,图片如何转换，压缩
     module:{
@@ -25,7 +26,18 @@ module.exports={
             test:/\.css$/,
             use:extractTextPlugin.extract({
                 fallback:'style-loader',
-                use:'css-loader'
+               
+                  use:[{
+                        loader:"css-loader"
+                      },{
+                        loader:"postcss-loader",
+                        options:{
+                          ident:'postcss',
+                          plugins:[
+                             require('autoprefixer')()
+                          ]
+                        }
+                      }],
             })//css分离打包
           },{
             test:/\.(png|jpg|gif)/,
@@ -41,6 +53,18 @@ module.exports={
           },{
             test:/\.(html|html)$/i,
             use:['html-withimg-loader']
+          },{
+            test:/\.less$/,
+            use:extractTextPlugin.extract({
+               
+                  use:[{
+                        loader:"css-loader"
+                      },{
+                        loader:"less-loader"
+                      }],
+                   fallback:'style-loader'//less打包分离
+               })
+          
           }
        ]
  

@@ -7,4 +7,5 @@ body{
 	background-image:url(../image/manhua.png);
 	width: 466px;
 	height: 453px;
+	transform: rotate(45deg);
 }
