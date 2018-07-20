@@ -1,0 +1,10 @@
+$.ajax({
+type:"POST",
+url:"/ems/curriculum/evaluation/get/model/tree",
+data:{id:"21f796d3bcbf44089fe4e730f31e9c72"},
+success:function(){
+
+
+}
+
+})

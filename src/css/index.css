@@ -7,5 +7,9 @@ body{
 	background-image:url(../image/manhua.png);
 	width: 466px;
 	height: 453px;
+	font-size: 12px;
 	transform: rotate(45deg);
+}
+.Box{
+	background: red
 }
